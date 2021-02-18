@@ -6,6 +6,7 @@ public class AnimationScript : MonoBehaviour
 {
     Animator m_Animator;
 
+    public bool normalIsMoving;
     bool m_IsMoving;
 
     // Start is called before the first frame update
@@ -21,7 +22,7 @@ public class AnimationScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (normalIsMoving)
         {
             m_Animator.SetBool("IsMoving", true);
         }
