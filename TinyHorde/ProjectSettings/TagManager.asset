@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - zombie
+  - Human
+  - Weapon
   layers:
   - Default
   - TransparentFX

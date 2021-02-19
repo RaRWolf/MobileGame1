@@ -4,34 +4,62 @@ using UnityEngine;
 
 public class HumanShoot : MonoBehaviour
 {
+    //Gunstuff
+    public GameObject gunSpot;
 
     public LayerMask layerMask;
     public LineRenderer gunLine;
+
     public float lineWidth = 0.1f;
     public float maxLineLength = 5f;
 
-    public GameObject gunSpot;
+    public bool firing = false;
 
+    public ArmRotator armScript;
+
+    //Zombie detector stuff
     public float radius;
     Vector3 center;
 
-    public bool firing = false;
 
+    //Color stuff
+    public Color myShirtColor;
+    public MeshRenderer[] clothes;
+    public MeshRenderer head;
 
+    //Death stuff
+    public GameObject weapon;
+    public int HP;
+    public Animator myAnimator;
+    public RuntimeAnimatorController zombieAnimation;
+    public Material zombieSkin;
+    public ParticleSystem blood;
 
     // Start is called before the first frame update
     void Start()
     {
+        //Creates random shirt color
+        myShirtColor = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
 
+        foreach (MeshRenderer clothing in clothes)
+        {
+            clothing.material.color = myShirtColor;
+        }
+
+        //Creates random skin tone
+        head.material.color = head.material.color * Random.Range(0, 1.5f);
+
+        //Disables Linerenderer by default, just in case
         gunLine.enabled = false;
+
+        //Gets the armscript
+        armScript = GetComponentInChildren<ArmRotator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Vector3 center = transform.position;
-
-
 
 
 
@@ -63,43 +91,43 @@ public class HumanShoot : MonoBehaviour
     {
         if (target != null)
         {
-            //Turn   
-            var lookPos = gunSpot.transform.position - target.transform.position;
-            lookPos.y = 0;
-
-            var rotation = Quaternion.LookRotation(lookPos);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 2.0f);
-
-            //And Shoot
-            if (!firing)
+            if (target.gameObject.CompareTag("zombie"))
             {
-                StartCoroutine("FirePistol");
-                firing = true;
+                //Turn
+                var lookPos = gunSpot.transform.position - target.transform.position;
+
+                armScript.stolenTarget = target.transform.position;
+
+
+                lookPos.y = 0;
+                var rotation = Quaternion.LookRotation(lookPos);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 3.0f);
+
+                //And Shoot
+                if (!firing)
+                {
+                    StartCoroutine("FirePistol");
+                    firing = true;
+                }
             }
-        }
-        else
-        {
-            Debug.Log("NoTarget");
+            
         }
     }
 
     IEnumerator FirePistol()
     {
         
-        yield return new WaitForSeconds(Random.Range(1,2));
+        yield return new WaitForSeconds(Random.Range(1,3));
         RaycastHit hit;
-        if (Physics.Raycast(gunSpot.transform.position, transform.TransformDirection(Vector3.back), out hit, Mathf.Infinity, layerMask))
+        if (Physics.Raycast(gunSpot.transform.position, gunSpot.transform.TransformDirection(Vector3.back), out hit, Mathf.Infinity))
         {
-            Debug.DrawRay(gunSpot.transform.position, transform.TransformDirection(Vector3.back) * hit.distance, Color.yellow);
-            Debug.Log("Did Hit");
-
             ZombieMove zombieScript = hit.transform.GetComponent<ZombieMove>();
             if (zombieScript != null)
             {
                 zombieScript.TakeDamage();
+                Debug.DrawRay(gunSpot.transform.position, gunSpot.transform.TransformDirection(Vector3.back) * hit.distance, Color.yellow);
+                StartCoroutine("DrawShot", hit);
             }
-
-            StartCoroutine("DrawShot",  hit);
         }
         firing = false;
     }
@@ -123,5 +151,33 @@ public class HumanShoot : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, radius);
+    }
+
+    public void TakeDamage()
+    {
+        HP -= 1;
+        blood.Play();
+        if(HP <= 0)
+        {
+
+            myAnimator.runtimeAnimatorController = zombieAnimation as RuntimeAnimatorController;
+            myAnimator.applyRootMotion = true;
+            gameObject.AddComponent<AnimationScript>();
+            gameObject.tag = "zombie";
+            gameObject.layer = 8;
+            foreach(Transform t in transform)
+            {
+                t.gameObject.tag = "zombie";
+                t.gameObject.layer = 8;
+            }
+
+            head.material = zombieSkin;
+
+            gameObject.AddComponent<ZombieMove>();
+
+            Destroy(weapon);
+            Destroy(gunLine);
+            Destroy(this);
+        }
     }
 }
