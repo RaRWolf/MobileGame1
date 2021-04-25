@@ -5,6 +5,7 @@ ScriptsOnlyBuild:
     - ArmRotator
     - CameraController
     - EnemyPooling
+    - FadeOut
     - HumanRun
     - HumanShoot
     - LevelGenerator
@@ -13,15 +14,15 @@ ScriptsOnlyBuild:
     - SpawnChance
     - UIController
     - WallDeleter
-    Unity.ProBuilder.dll:
-    - UnityEngine.ProBuilder.ProBuilderMesh
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -77,43 +78,47 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11310}
+      Script: {instanceID: 11302}
     - Class: 114
-      Script: {instanceID: 11532}
+      Script: {instanceID: 11460}
     - Class: 114
-      Script: {instanceID: 11594}
+      Script: {instanceID: 11500}
     - Class: 114
-      Script: {instanceID: 11788}
+      Script: {instanceID: 11506}
     - Class: 114
-      Script: {instanceID: 11818}
+      Script: {instanceID: 11670}
     - Class: 114
-      Script: {instanceID: 11960}
+      Script: {instanceID: 11780}
     - Class: 114
-      Script: {instanceID: 12002}
+      Script: {instanceID: 11814}
     - Class: 114
-      Script: {instanceID: 12030}
+      Script: {instanceID: 11832}
     - Class: 114
-      Script: {instanceID: 12112}
+      Script: {instanceID: 11900}
     - Class: 114
-      Script: {instanceID: 12142}
+      Script: {instanceID: 11918}
     - Class: 114
-      Script: {instanceID: 12160}
+      Script: {instanceID: 11930}
     - Class: 114
-      Script: {instanceID: 12338}
+      Script: {instanceID: 12068}
     - Class: 114
-      Script: {instanceID: 13270}
+      Script: {instanceID: 12110}
     - Class: 114
-      Script: {instanceID: 13288}
+      Script: {instanceID: 12768}
     - Class: 114
-      Script: {instanceID: 13394}
+      Script: {instanceID: 12780}
     - Class: 114
-      Script: {instanceID: 13448}
+      Script: {instanceID: 12850}
     - Class: 114
-      Script: {instanceID: 13456}
+      Script: {instanceID: 12882}
     - Class: 114
-      Script: {instanceID: 13698}
+      Script: {instanceID: 12890}
     - Class: 114
-      Script: {instanceID: 13772}
+      Script: {instanceID: 13066}
+    - Class: 114
+      Script: {instanceID: 13126}
+    - Class: 114
+      Script: {instanceID: 26952}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -158,20 +163,26 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11310}
+      Script: {instanceID: 11302}
     - Class: 114
-      Script: {instanceID: 11584}
+      Script: {instanceID: 11460}
     - Class: 114
-      Script: {instanceID: 12112}
+      Script: {instanceID: 11500}
     - Class: 114
-      Script: {instanceID: 12622}
+      Script: {instanceID: 11814}
     - Class: 114
-      Script: {instanceID: 13270}
+      Script: {instanceID: 11900}
     - Class: 114
-      Script: {instanceID: 13288}
+      Script: {instanceID: 12286}
     - Class: 114
-      Script: {instanceID: 13772}
+      Script: {instanceID: 12768}
+    - Class: 114
+      Script: {instanceID: 12780}
+    - Class: 114
+      Script: {instanceID: 13126}
     - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
@@ -210,12 +221,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_Dropdown
-  - hash:
-      serializedVersion: 2
-      Hash: 9c7c87712e298256d276eb96e02a57b1
-    assemblyName: Unity.ProBuilder.dll
-    namespaceName: UnityEngine.ProBuilder
-    className: PreferenceDictionary
   - hash:
       serializedVersion: 2
       Hash: 4740b05ad722b7575f0cd8646c08a178
@@ -296,12 +301,6 @@ ScriptsOnlyBuild:
     className: TMP_InputField
   - hash:
       serializedVersion: 2
-      Hash: f6633ace6e530c0000f2ac6da4269c52
-    assemblyName: Unity.ProBuilder.dll
-    namespaceName: UnityEngine.ProBuilder
-    className: PolyShape
-  - hash:
-      serializedVersion: 2
       Hash: 7ab0e790220bdca831fdd886b339039d
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -330,12 +329,6 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: PhysicsRaycaster
-  - hash:
-      serializedVersion: 2
-      Hash: 05655f7deb066a961c41619ac9e98263
-    assemblyName: Unity.ProBuilder.dll
-    namespaceName: UnityEngine.ProBuilder
-    className: ProBuilderMesh
   - hash:
       serializedVersion: 2
       Hash: bd3cf68c8964d3c66d1c43f4f98508c9
@@ -386,12 +379,6 @@ ScriptsOnlyBuild:
     className: ArmRotator
   - hash:
       serializedVersion: 2
-      Hash: 32f6d1d5a09e5c94c633a32edd3e6836
-    assemblyName: Unity.ProBuilder.dll
-    namespaceName: UnityEngine.ProBuilder
-    className: BezierShape
-  - hash:
-      serializedVersion: 2
       Hash: aba7b2852ef61d175dd9602e7723d5e5
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -410,7 +397,7 @@ ScriptsOnlyBuild:
     className: Shadow
   - hash:
       serializedVersion: 2
-      Hash: 43a32bc69b190ed986eedd63b355bf96
+      Hash: a08e9b9a06ce76b0965799e72f139754
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: HumanRun
@@ -464,7 +451,7 @@ ScriptsOnlyBuild:
     className: Selectable
   - hash:
       serializedVersion: 2
-      Hash: 3600f4d4b4407fa58c9c8430edde8750
+      Hash: 682179de518f6ae81bcd97e388df223a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: HumanShoot
@@ -482,22 +469,16 @@ ScriptsOnlyBuild:
     className: ScrollRect
   - hash:
       serializedVersion: 2
-      Hash: e9389e944eb81a3a9df56fcdb09ce6a9
-    assemblyName: Unity.ProBuilder.dll
-    namespaceName: UnityEngine.ProBuilder
-    className: TriggerBehaviour
+      Hash: e8a7de2c6fac072417f1cdd1b9c6be1f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: FadeOut
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: SignalTrack
-  - hash:
-      serializedVersion: 2
-      Hash: e9389e944eb81a3a9df56fcdb09ce6a9
-    assemblyName: Unity.ProBuilder.dll
-    namespaceName: UnityEngine.ProBuilder
-    className: ColliderBehaviour
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -534,12 +515,6 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: VerticalLayoutGroup
-  - hash:
-      serializedVersion: 2
-      Hash: d6a8e9bec3160a152b9b2710593d3caa
-    assemblyName: Unity.ProBuilder.dll
-    namespaceName: UnityEngine.ProBuilder
-    className: ColorPalette
   - hash:
       serializedVersion: 2
       Hash: f64fd37da5cb89243ec68b5026d70bb8
@@ -588,18 +563,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: TimelineAsset
-  - hash:
-      serializedVersion: 2
-      Hash: 301f4da7cc3b301c161d089f9d22efed
-    assemblyName: Unity.ProBuilder.dll
-    namespaceName: UnityEngine.ProBuilder
-    className: Entity
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: MinusOne
   - hash:
       serializedVersion: 2
       Hash: 8001a5f7502aab37e42206da015e6914
