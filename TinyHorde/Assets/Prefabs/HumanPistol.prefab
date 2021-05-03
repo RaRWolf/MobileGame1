@@ -556,7 +556,7 @@ MonoBehaviour:
   lineWidth: 0.1
   maxLineLength: 5
   firing: 0
-  armScript: {fileID: 0}
+  armScript: {fileID: 2506085811794719257}
   radius: 10
   myShirtColor: {r: 0, g: 0, b: 0, a: 0}
   clothes:
@@ -571,7 +571,6 @@ MonoBehaviour:
   zombieSkin: {fileID: 2100000, guid: 36581ea23363971449908a7749c07733, type: 2}
   blood: {fileID: 8104121218684800438}
   myBody: {fileID: 3766298654350575542}
-  isVisible: 0
 --- !u!198 &8104121218684800438
 ParticleSystem:
   m_ObjectHideFlags: 0

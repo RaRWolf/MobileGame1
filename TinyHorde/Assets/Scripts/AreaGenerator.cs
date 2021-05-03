@@ -22,7 +22,6 @@ public class AreaGenerator : MonoBehaviour
     void OnEnable()
     {
         //Find the level generator
-        Debug.Log("WAKE ME UP");
         levelGenerator = FindObjectsOfType<LevelGenerator>()[0];
         StartCoroutine("LateStart");
         StartCoroutine("SpawnArea");
@@ -31,21 +30,18 @@ public class AreaGenerator : MonoBehaviour
     IEnumerator LateStart()
     {
         yield return new WaitForSeconds(0.1f);
-        Debug.Log("Generator summoned");
 
         //Find out if there's an empty space. If there is, spawn the new tile.
         for (var i = 0; i < levelGenerator.currentAreas.Count; i++)
         {
             if (levelGenerator.currentAreas[i] == null && !isASpot)
             {
-                Debug.Log("Found a spot");
                 isASpot = true;
             }
         }
 
         if (isASpot == false)
         {
-            Debug.Log("No spot, destroying");
             levelGenerator.spawning = false;
             levelGenerator.spawning2 = false;
 

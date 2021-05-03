@@ -12,6 +12,7 @@ public class SpawnChance : MonoBehaviour
 
     private float actualSpawn;
     private float actualGun;
+    private float cashChance;
 
     private GameObject cam;
     private CameraController camScript;
@@ -32,6 +33,7 @@ public class SpawnChance : MonoBehaviour
 
         actualSpawn = Random.Range(0.0f, 1.0f);
         actualGun = Random.Range(0.0f, 1.0f);
+        cashChance = Random.Range(0f, 1f);
 
         //If the horde size is over 10, start increasing the gunchance
         if (CameraController.SharedInstance.hordeSizeAfter > 10)
@@ -45,27 +47,42 @@ public class SpawnChance : MonoBehaviour
         if (actualSpawn < spawnChance)
         {
             //If the generated number is less than the gun chance, spawn it with a gun
-            if (actualGun < gunChance)
-            {
 
-                GameObject gunMan = EnemyPooling.SharedInstance.GetPooledGunman();
-                if (gunMan != null)
+            if (cashChance < 0.01f)
+            {
+                GameObject cashPile = EnemyPooling.SharedInstance.GetPooledCashPile();
+                if (cashPile != null)
                 {
-                    gunMan.transform.position = new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z);
-                    gunMan.transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
-                    gunMan.SetActive(true);
-                    gunMan.transform.SetParent(transform.parent.parent.parent);
+                    cashPile.transform.position = new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z);
+                    cashPile.transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+                    cashPile.SetActive(true);
+                    cashPile.transform.SetParent(transform.parent.parent.parent);
                 }
             }
             else
             {
-                GameObject runMan = EnemyPooling.SharedInstance.GetPooledRunman();
-                if (runMan != null)
+                if (actualGun < gunChance)
                 {
-                    runMan.transform.position = new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z);
-                    runMan.transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
-                    runMan.SetActive(true);
-                    runMan.transform.SetParent(transform.parent.parent.parent);
+
+                    GameObject gunMan = EnemyPooling.SharedInstance.GetPooledGunman();
+                    if (gunMan != null)
+                    {
+                        gunMan.transform.position = new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z);
+                        gunMan.transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+                        gunMan.SetActive(true);
+                        gunMan.transform.SetParent(transform.parent.parent.parent);
+                    }
+                }
+                else
+                {
+                    GameObject runMan = EnemyPooling.SharedInstance.GetPooledRunman();
+                    if (runMan != null)
+                    {
+                        runMan.transform.position = new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z);
+                        runMan.transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+                        runMan.SetActive(true);
+                        runMan.transform.SetParent(transform.parent.parent.parent);
+                    }
                 }
             }
         }

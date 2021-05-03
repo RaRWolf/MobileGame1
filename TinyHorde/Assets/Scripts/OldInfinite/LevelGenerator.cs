@@ -147,6 +147,12 @@ public class LevelGenerator : MonoBehaviour
                 human.parent = null;
                 human.gameObject.SetActive(false);
             }
+
+            if (human.tag == "Cash")
+            {
+                human.parent = null;
+                human.gameObject.SetActive(false);
+            }
         }
 
         for (int i = 0; i < 9; i++)
@@ -178,14 +184,12 @@ public class LevelGenerator : MonoBehaviour
 
     void SpawnAnArea(float X, float Z)
     {
-        Debug.Log("Attempting to call pooler");
         GameObject area = EnemyPooling.SharedInstance.GetPooledArea();
         if (area != null)
         {
             area.transform.position = new Vector3(X, 0, Z);
             area.transform.rotation = Quaternion.identity;
             area.SetActive(true);
-            Debug.Log("Set to active!");
             currentAreaAmount++;
         }
         else

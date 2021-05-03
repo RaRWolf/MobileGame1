@@ -21,6 +21,10 @@ public class EnemyPooling : MonoBehaviour
     public GameObject runmanToPool;
     public int runAmountToPool;
 
+    public List<GameObject> pooledCashPile;
+    public GameObject cashPilesToPool;
+    public int cashPileAmountToPool;
+
     public List<GameObject> pooledAreas;
     public GameObject areaToPool;
     public int areaAmountToPool;
@@ -33,6 +37,14 @@ public class EnemyPooling : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pooledCashPile = new List<GameObject>();
+        for (int i = 0; i < cashPileAmountToPool; i++)
+        {
+            GameObject obj = (GameObject)Instantiate(cashPilesToPool);
+            obj.SetActive(false);
+            pooledCashPile.Add(obj);
+        }
+
         pooledGunmen = new List<GameObject>();
         for (int i = 0; i < gunAmountToPool; i++)
         {
@@ -70,6 +82,18 @@ public class EnemyPooling : MonoBehaviour
         }
     }
 
+    public GameObject GetPooledCashPile()
+    {
+        for (int i = 0; i < pooledCashPile.Count; i++)
+        {
+            if (!pooledCashPile[i].activeInHierarchy)
+            {
+                return pooledCashPile[i];
+            }
+        }
+        return null;
+    }
+
     public GameObject GetPooledGunman()
     {
         for (int i = 0; i < pooledGunmen.Count; i++)
@@ -96,18 +120,14 @@ public class EnemyPooling : MonoBehaviour
 
     public GameObject GetPooledArea()
     {
-        Debug.Log("Poolercalled");
         for (int i = -1; i < pooledAreas.Count; i++)
         {
-            Debug.Log("Searching");
             int x = Random.Range(0, pooledAreas.Count);
-            Debug.Log("X is equal to:" + x);
             if (!pooledAreas[x].activeInHierarchy)
             {
                 return pooledAreas[x];
             }
         }
-        Debug.Log("No area found");
         return null;
     }
 
@@ -116,7 +136,6 @@ public class EnemyPooling : MonoBehaviour
         for (int i = -1; i < pooledSections.Count; i++)
         {
             int x = Random.Range(0, pooledSections.Count);
-            Debug.Log("X is equal to:" + x);
             if (!pooledSections[x].activeInHierarchy)
             {
                 return pooledSections[x];
@@ -129,12 +148,17 @@ public class EnemyPooling : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
 
-        Debug.Log("No longer active");
         obj.SetActive(false);
 
         foreach (Transform human in obj.transform)
         {
             if (human.tag == "Human")
+            {
+                human.parent = null;
+                human.gameObject.SetActive(false);
+            }
+
+            if (human.tag == "Cash")
             {
                 human.parent = null;
                 human.gameObject.SetActive(false);
@@ -150,12 +174,20 @@ public class EnemyPooling : MonoBehaviour
             }
         }
 
-        GameObject[] humansArray = GameObject.FindGameObjectsWithTag("Human");
+       GameObject[] humansArray = GameObject.FindGameObjectsWithTag("Human");
        foreach (GameObject human in humansArray)
         {
             Transform humanT = human.transform;
             humanT.parent = null;
             humanT.gameObject.SetActive(false);
+        }
+
+        GameObject[] cashArray = GameObject.FindGameObjectsWithTag("Cash");
+        foreach (GameObject cash1 in cashArray)
+        {
+            Transform cash1T = cash1.transform;
+            cash1T.parent = null;
+            cash1T.gameObject.SetActive(false);
         }
 
         pooledSections.Add(obj);

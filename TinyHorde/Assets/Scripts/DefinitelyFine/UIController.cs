@@ -9,11 +9,14 @@ public class UIController : MonoBehaviour
     public Text hordeSizeText;
     public int hordeSizeNumber;
 
+    public Text cashText;
+
     public CameraController cameraController;
 
     void Update()
     {
         hordeSizeText.text = cameraController.horde.Length.ToString();
+        cashText.text = cameraController.cash.ToString();
     }
 
     public void LoadLevel()
